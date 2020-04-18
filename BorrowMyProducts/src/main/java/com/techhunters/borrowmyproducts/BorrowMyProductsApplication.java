@@ -1,4 +1,4 @@
-package com.hackathon.borrowmyproducts;
+package com.techhunters.borrowmyproducts;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
