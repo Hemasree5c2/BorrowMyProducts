@@ -1,8 +1,6 @@
 package com.techhunters.borrowmyproducts.entity;
-
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -23,32 +20,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="User")
-public class User {
-	
+@Table(name="Category")
+public class Category {
+   
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="User_Id")
-	private int userId;
+	@Column(name="Category_Id")
+	private int categoryId;
 	
-	@Column(name="User_Name")
-	private String username;
+	@Column(name="Category_Name")
+	private int categoryName;
 	
-	@Column(name="Password")
-	private String password;
-	
-	@Column(name="Phone_no")
-	private String phone;
-	
-	@Column(name="Email_Id")
-	private String email;
-	
-	@OneToMany(mappedBy = "User",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "Category",fetch = FetchType.LAZY)
 	private List<Product> products;
-	
-	@OneToMany(mappedBy = "User",fetch = FetchType.LAZY)
-	private List<ProductRequest> productRequests;
-	
-	@OneToOne(mappedBy="User",fetch=FetchType.LAZY)
-	private UserAddress address;
 }
