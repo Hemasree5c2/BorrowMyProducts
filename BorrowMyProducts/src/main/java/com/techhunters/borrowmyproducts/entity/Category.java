@@ -31,6 +31,6 @@ public class Category {
 	@Column(name="Category_Name")
 	private int categoryName;
 	
-	@OneToMany(mappedBy = "Category",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
 	private List<Product> products;
 }

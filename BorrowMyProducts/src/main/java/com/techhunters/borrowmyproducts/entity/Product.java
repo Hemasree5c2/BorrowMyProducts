@@ -37,7 +37,7 @@ public class Product {
 	
 	@ManyToOne
 	@JoinColumn(name="Category_Id")
-	private int categoryId;
+	private Category category;
 	
 	@Column(name="Product_Name")
 	private String productName;
@@ -51,10 +51,10 @@ public class Product {
 	@Column(name="Status")
 	private String productStatus;
 	
-	@OneToMany(mappedBy = "Product",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
 	private List<ProductRequest> productRequests;
 	
-	@OneToOne(mappedBy="Product",fetch=FetchType.LAZY)
+	@OneToOne(mappedBy="product",fetch=FetchType.LAZY)
 	private ProductLocation productLocation;
 	
 	

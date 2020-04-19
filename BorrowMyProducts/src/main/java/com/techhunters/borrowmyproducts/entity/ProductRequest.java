@@ -28,10 +28,10 @@ public class ProductRequest {
 	
 	@ManyToOne
 	@JoinColumn(name="User_uid")
-	private int requesterId;
+	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="Product_pid")
-	private int productId;
+	private Product product;
 	
 }

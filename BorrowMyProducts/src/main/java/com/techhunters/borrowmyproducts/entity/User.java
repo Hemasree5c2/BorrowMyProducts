@@ -1,5 +1,6 @@
 package com.techhunters.borrowmyproducts.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.apache.tomcat.jni.Address;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,12 +46,14 @@ public class User {
 	@Column(name="Email_Id")
 	private String email;
 	
-	@OneToMany(mappedBy = "User",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
 	private List<Product> products;
 	
-	@OneToMany(mappedBy = "User",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
 	private List<ProductRequest> productRequests;
 	
-	@OneToOne(mappedBy="User",fetch=FetchType.LAZY)
+	@OneToOne(mappedBy="user",fetch=FetchType.LAZY)
 	private UserAddress address;
+	
+    
 }
