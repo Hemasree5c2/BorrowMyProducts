@@ -1,7 +1,14 @@
 package com.techhunters.borrowmyproducts.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-public class AuthController {
+import com.techhunters.borrowmyproducts.service.TwilioAuthService;
+
+@Controller
+public class AuthController
+{
+	@Autowired
+	TwilioAuthService twilioAuthService;
+	
 }
