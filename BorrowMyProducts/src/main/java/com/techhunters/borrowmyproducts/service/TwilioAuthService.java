@@ -1,53 +1,59 @@
 package com.techhunters.borrowmyproducts.service;
 
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.techhunters.borrowmyproducts.config.TwilioConfig;
 import com.twilio.Twilio;
 import com.twilio.rest.verify.v2.service.Verification;
 import com.twilio.rest.verify.v2.service.VerificationCheck;
+import org.springframework.stereotype.Service;
 
-public class TwilioAuthService implements AuthService
-{
 
-	@Override
-	public Boolean sendOTP(String phoneNumber) 
-	{
-		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-       try
-       {
-		Verification verification = Verification.creator(SERVICE_SID, phoneNumber,"sms")
-            .create();
-        
-        //just printing on the console for verification
-        //System.out.println(verification.getStatus().toUpperCase());
-        
-        return true;
-       }
-      
-       catch(Exception exception)
-       {
-    	  
-    	   return false;
-       }
-		
-	}
+@Slf4j
+@Service
+public class TwilioAuthService implements AuthService {
 
-	@Override
-	public Boolean verifyOTP(String OTP,String phoneNumber)
-	{
-		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-		VerificationCheck verificationCheck = VerificationCheck
-								.creator(SERVICE_SID,OTP)
-								.setTo(phoneNumber).create();
+    @Autowired
+    TwilioConfig twilioConfig;
 
-        if(verificationCheck.getStatus()== "approved")
-        {
-        	return true;
-		}
-        else
-        {
-        	return false;
+    @Override
+    public Boolean sendOtp(String phoneNumber) {
+        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+        try {
+            Verification verification = Verification
+                    .creator(twilioConfig.getServiceSid(), phoneNumber, "sms")
+                    .create();
+
+
+           log.info(verification.getStatus());
+
+            return true;
+        } catch (Exception exception) {
+
+            log.info("user provided the invalid phone number {}",phoneNumber);
+            return false;
         }
-	
-	}
 
-	
+    }
+
+    @Override
+    public Boolean verifyOtp(String otp, String phoneNumber) {
+        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+        VerificationCheck verificationCheck = VerificationCheck
+                .creator(twilioConfig.getServiceSid(), otp)
+                .setTo(phoneNumber).create();
+
+        if (verificationCheck.getStatus().equals("approved")) {
+            log.info("successfully verified otp");
+            return true;
+        } else {
+            log.info("user entered a wrong otp {} for this phone number {}",otp,phoneNumber);
+            return false;
+        }
+
+    }
+
+
 }
