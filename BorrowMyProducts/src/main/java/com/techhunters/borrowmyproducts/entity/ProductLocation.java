@@ -19,13 +19,13 @@ import lombok.Setter;
 public class ProductLocation {
    
 	@OneToOne
-    @JoinColumn(name = "Product_Id", referencedColumnName = "Product_Id")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 	
-	@Column(name="Longitude")
+	@Column(name="longitude")
 	private double longitude;
 	
-	@Column(name="Latitude")
+	@Column(name="latitude")
 	private double latitude;
 	
 }

@@ -23,15 +23,15 @@ public class ProductRequest {
    
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="Product_Request_id")
+	@Column(name="product_request_id")
 	private int productRequestId;
 	
 	@ManyToOne
-	@JoinColumn(name="User_uid")
+	@JoinColumn(name="user_uid")
 	private User user;
 	
 	@ManyToOne
-	@JoinColumn(name="Product_pid")
+	@JoinColumn(name="product_pid")
 	private Product product;
 	
 }

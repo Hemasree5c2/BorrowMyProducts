@@ -31,19 +31,19 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="User_Id")
+	@Column(name="user_id")
 	private int userId;
 	
-	@Column(name="User_Name")
+	@Column(name="user_name")
 	private String username;
 	
-	@Column(name="Password")
+	@Column(name="password")
 	private String password;
 	
-	@Column(name="Phone_no")
+	@Column(name="phone_no")
 	private String phone;
 	
-	@Column(name="Email_Id")
+	@Column(name="email_id")
 	private String email;
 	
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)

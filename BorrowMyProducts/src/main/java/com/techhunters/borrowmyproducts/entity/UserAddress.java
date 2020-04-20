@@ -19,24 +19,24 @@ import lombok.Setter;
 public class UserAddress {
    
 	@OneToOne
-    @JoinColumn(name = "User_id", referencedColumnName = "User_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 	
-	@Column(name="House_No")
+	@Column(name="house_no")
 	private String houseNo;
 	
-	@Column(name="Street_No")
+	@Column(name="street_no")
 	private String StreetNo;
 	
-	@Column(name="City")
+	@Column(name="city")
 	private String city;
 	
-	@Column(name="State")
+	@Column(name="state")
 	private String state;
 	
-	@Column(name="Country")
+	@Column(name="country")
 	private String country;
 	
-	@Column(name="Zip_Code")
+	@Column(name="zip_code")
 	private String zipCode;
 }

@@ -25,10 +25,10 @@ public class Category {
    
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="Category_Id")
+	@Column(name="category_id")
 	private int categoryId;
 	
-	@Column(name="Category_Name")
+	@Column(name="category_name")
 	private int categoryName;
 	
 	@OneToMany(mappedBy = "category",fetch = FetchType.LAZY)

@@ -28,27 +28,27 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="Product_Id")
+	@Column(name="product_id")
 	private int productId;
 	
 	@ManyToOne
-    @JoinColumn(name="User_Id")
+    @JoinColumn(name="user_id")
     private User user;
 	
 	@ManyToOne
-	@JoinColumn(name="Category_Id")
+	@JoinColumn(name="category_id")
 	private Category category;
 	
-	@Column(name="Product_Name")
+	@Column(name="product_name")
 	private String productName;
 	
-	@Column(name="Product_Description")
+	@Column(name="product_description")
 	private String productDescription;
 	
-	@Column(name="Product_Cost")
+	@Column(name="product_cost")
 	private int productCost;
 	
-	@Column(name="Status")
+	@Column(name="status")
 	private String productStatus;
 	
 	@OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
