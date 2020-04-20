@@ -1,10 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>login</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        input[type="text"],
+        select.form-control {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #000000;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        input[type="text"]:focus,
+        select.form-control:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        input[type="password"],
+        select.form-control {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #000000;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        input[type="password"]:focus,
+        select.form-control:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        input[type="email"],
+        select.form-control {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #000000;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        input[type="email"]:focus,
+        select.form-control:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    </style>
 </head>
 <body>
-<h1>Login Page</h1>
+<section class="testimonial py-5" id="testimonial">
+    <div class="container">
+        <div class="row ">
+            <div class="card bg-dark col-md-4 py-5 text-white text-center">
+                <img class="card-img-top" src="https://cdn.windowsreport.com/wp-content/uploads/2018/03/ecommerce-2140604_1920.jpg" alt="Card image">
+                <div class="card-body">
+                    <h5 class="card-title">BorrowMyProducts</h5>
+                    <h5 class="card-title">Lend here to Earn and Rent here to Save</h5>
+                    <p class="card-text">In this website the you can either lend or rent the products which are near to his location.</p>
+                </div>
+            </div>
+            <div class="col-md-4 py-5 border">
+                <h4 class="pb-4">Login Form</h4>
+                <form action="#" th:action="@{/validate}" th:object="${user}" method="post">
+                    <p th:if="${InvalidCredentials}" class="error">Email or Password is wrong</p>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <input id="password" name="password" placeholder="Password" class="form-control" required="required" type="password">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <input type="submit" value="Login" class="btn btn-success">
+                    </div>
+                </form>
+                <p>If account does not exits <a th:href="@{/signup}">signup here</a></p>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
