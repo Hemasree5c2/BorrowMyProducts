@@ -15,24 +15,28 @@ import org.springframework.stereotype.Service;
 @Service
 public class TwilioAuthService implements AuthService {
 
+    private final TwilioConfig twilioConfig;
+
     @Autowired
-    TwilioConfig twilioConfig;
+    public TwilioAuthService(TwilioConfig twilioConfig) {
+        this.twilioConfig = twilioConfig;
+    }
 
     @Override
     public Boolean sendOtp(String phoneNumber) {
-        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
         try {
+            Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
             Verification verification = Verification
                     .creator(twilioConfig.getServiceSid(), phoneNumber, "sms")
                     .create();
 
 
-           log.info(verification.getStatus());
+            log.info("verification status: {}", verification.getStatus());
 
             return true;
         } catch (Exception exception) {
 
-            log.info("user provided the invalid phone number {}",phoneNumber);
+            log.info("exception : {}",exception.getMessage());
             return false;
         }
 
@@ -40,16 +44,23 @@ public class TwilioAuthService implements AuthService {
 
     @Override
     public Boolean verifyOtp(String otp, String phoneNumber) {
-        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-        VerificationCheck verificationCheck = VerificationCheck
-                .creator(twilioConfig.getServiceSid(), otp)
-                .setTo(phoneNumber).create();
+        try {
+            Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+            VerificationCheck verificationCheck = VerificationCheck
+                    .creator(twilioConfig.getServiceSid(), otp)
+                    .setTo(phoneNumber).create();
 
-        if (verificationCheck.getStatus().equals("approved")) {
-            log.info("successfully verified otp");
-            return true;
-        } else {
-            log.info("user entered a wrong otp {} for this phone number {}",otp,phoneNumber);
+            if (verificationCheck.getStatus().equals("approved")) {
+                log.info("successfully verified otp");
+                return true;
+            } else {
+                log.info("user entered a wrong otp: {}, for this phone number: {}", otp, phoneNumber);
+                return false;
+            }
+        }
+        catch(Exception exception)
+        {
+            log.info("exception : {}",exception.getMessage());
             return false;
         }
 
