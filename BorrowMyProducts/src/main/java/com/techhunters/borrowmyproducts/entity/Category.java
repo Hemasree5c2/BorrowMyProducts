@@ -29,7 +29,7 @@ public class Category {
 	private int categoryId;
 	
 	@Column(name="category_name")
-	private int categoryName;
+	private String categoryName;
 	
 	@OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
 	private List<Product> products;
