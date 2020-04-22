@@ -2,6 +2,8 @@ package com.techhunters.borrowmyproducts.controller;
 import com.techhunters.borrowmyproducts.dto.UserDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,28 +38,25 @@ public class AuthController {
         return "login";
     }
     @PostMapping("/signup")
-    public String append(@ModelAttribute(name="user") UserDTO user,Model model) {
-        String regexEmail="^(.+)@(.+)$";
-        Pattern pattern = Pattern.compile(regexEmail);
-        if(!pattern.matcher(user.getEmail()).matches()) {
-            model.addAttribute("emailError",true);
-            return "signup";
-        }
+    public String append(@ModelAttribute(name="user") @Validated UserDTO user, BindingResult result, Model model) {
         if(!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError",true);
             return "signup";
         }
-        String regexPhone="[0-9]+";
-        Pattern pat=Pattern.compile(regexPhone);
-        if(!pat.matcher(user.getPhoneNo()).matches()) {
-            model.addAttribute("numberError",true);
-            return "signup";
-        }
-        if(!pat.matcher(user.getPincode()).matches()) {
-            model.addAttribute("numberError",true);
+        if(result.hasErrors()) {
+            model.addAttribute("emailError",true);
             return "signup";
         }
         objects.add(user);
-        return "login";
+        return "otp";
+    }
+    @PostMapping("/otp")
+    public String verifyOtp(@ModelAttribute(name="user") UserDTO user,Model model) {
+        if(user.getOtp()==1234) {
+            return "login";
+        }
+        else {
+            return "otp";
+        }
     }
 }

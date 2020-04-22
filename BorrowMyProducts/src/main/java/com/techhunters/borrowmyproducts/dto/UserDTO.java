@@ -1,7 +1,11 @@
 package com.techhunters.borrowmyproducts.dto;
 
 import lombok.*;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Component
 @AllArgsConstructor
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class UserDTO {
     private String firstName;
     private String lastName;
+    @Email(message = "invalid email")
     private String email;
     private String password;
     private String confirmPassword;
@@ -22,4 +27,5 @@ public class UserDTO {
     private String pincode;
     private String latitude;
     private String longitude;
+    private int otp;
 }
