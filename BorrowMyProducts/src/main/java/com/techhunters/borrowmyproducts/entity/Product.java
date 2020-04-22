@@ -1,6 +1,7 @@
 package com.techhunters.borrowmyproducts.entity;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,11 +32,11 @@ public class Product {
 	@Column(name="product_id")
 	private int productId;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="user_id")
     private User user;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="category_id")
 	private Category category;
 	

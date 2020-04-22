@@ -26,15 +26,6 @@ public class ProductRequestRepositoryTest {
     @Autowired
     private ProductRequestRepository productRequestRepository;
     
-    @Autowired
-    private ProductRepository productRepository;
-    
-    @Autowired 
-    private CategoryRepository categoryRepository;
-    
-    @Autowired
-    private UserRepository userRepository;
-    
    
     @Test
     public void testFindAll() {
@@ -93,7 +84,6 @@ public class ProductRequestRepositoryTest {
 	 public Category getCategory() {
 	    	Category category=new Category();
 	    	category.setCategoryName("Electronics");
-	    	categoryRepository.save(category);
 	    	return category;
 	    }
 	    
@@ -103,7 +93,6 @@ public class ProductRequestRepositoryTest {
 	         user1.setPassword("password1");
 	         user1.setPhone("9392081881");
 	         user1.setEmail("ray@gmail.com");
-	         userRepository.save(user1);
 	         return user1;
 	    }
 	    
@@ -115,7 +104,6 @@ public class ProductRequestRepositoryTest {
 	    	product.setProductStatus("Available");
 	    	product.setCategory(getCategory());
 	    	product.setUser(getUser());
-	    	productRepository.save(product);
 	    	return product;
 	    }
 	    
@@ -127,7 +115,6 @@ public class ProductRequestRepositoryTest {
 	    	product.setProductStatus("Available");
 	    	product.setCategory(getCategory());
 	    	product.setUser(getUser());
-	    	productRepository.save(product);
 	    	return product;
 	    }
 	    

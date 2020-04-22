@@ -23,8 +23,6 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
     
-    @Autowired
-    private UserAddressRepository userAddressRepository;
     
     @Test
     public void testFindAll() {
@@ -80,7 +78,6 @@ public class UserRepositoryTest {
         address.setUser(user);
         user.setAddress(address);
         userRepository.save(user);
-        userAddressRepository.save(address);
         Optional<User> returnedUser=userRepository.findById(user.getUserId());
         UserAddress returnedAddress=returnedUser.get().getAddress();
         assertThat(returnedAddress).isEqualTo(address);

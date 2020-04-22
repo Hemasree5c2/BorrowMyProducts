@@ -23,12 +23,6 @@ public class ProductRepositoryTest {
 	 
 	    @Autowired
 	    private ProductRepository productRepository;
-	    
-	    @Autowired 
-	    private CategoryRepository categoryRepository;
-	    
-	    @Autowired
-	    private UserRepository userRepository;
 	   
 	    
 	    @Test
@@ -81,7 +75,6 @@ public class ProductRepositoryTest {
 	    public Category getCategory() {
 	    	Category category=new Category();
 	    	category.setCategoryName("Electronics");
-	    	categoryRepository.save(category);
 	    	return category;
 	    }
 	    
@@ -91,7 +84,6 @@ public class ProductRepositoryTest {
 	         user1.setPassword("password1");
 	         user1.setPhone("9392081881");
 	         user1.setEmail("ray@gmail.com");
-	         userRepository.save(user1);
 	         return user1;
 	    }
 	    

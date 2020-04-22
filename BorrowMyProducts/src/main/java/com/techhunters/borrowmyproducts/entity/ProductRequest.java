@@ -1,4 +1,5 @@
 package com.techhunters.borrowmyproducts.entity;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,11 +27,11 @@ public class ProductRequest {
 	@Column(name="product_request_id")
 	private int productRequestId;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="user_uid")
 	private User user;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="product_pid")
 	private Product product;
 	

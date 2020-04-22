@@ -52,7 +52,7 @@ public class User {
 	@OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
 	private List<ProductRequest> productRequests;
 	
-	@OneToOne(mappedBy="user",fetch=FetchType.LAZY)
+	@OneToOne(mappedBy="user",fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private UserAddress address;
 	
     
