@@ -4,55 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <title>signup</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <style>
-        input[type="text"],
-        select.form-control {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #000000;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-radius: 0;
+    <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/style.css}" rel="stylesheet">
+    <script>
+        function stoppedTyping(){
+            if(document.getElementById("email").value!='' && document.getElementById("password").value!='' && document.getElementById("firstName").value!='' && document.getElementById("confirmPassword").value!='' && document.getElementById("phoneNo").value!='' && document.getElementById("lastName").value!='' && document.getElementById("doorNo").value!='' && document.getElementById("city").value!='' && document.getElementById("state").value!='' && document.getElementById("country").value!='' && document.getElementById("pincode").value!=''){
+                document.getElementById('reg_btn').disabled=false
+            }
+            else{
+                document.getElementById('reg_btn').disabled=true
+            }
         }
-        input[type="text"]:focus,
-        select.form-control:focus {
-            -webkit-box-shadow: none;
-            box-shadow: none;
+        function myFunction() {
+          var x = document.getElementById("password");
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
         }
-        input[type="password"],
-        select.form-control {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #000000;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-radius: 0;
+        function myFunction1() {
+          var x = document.getElementById("confirmPassword");
+          if (x.type === "password") {
+            x.type = "text";
+          } else {
+            x.type = "password";
+          }
         }
-        input[type="password"]:focus,
-        select.form-control:focus {
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-        input[type="email"],
-        select.form-control {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #000000;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-radius: 0;
-        }
-        input[type="email"]:focus,
-        select.form-control:focus {
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtZO2wu2x-xu46iUptwBI6tvIlUv5_G7RE6yaYxIQpRG-vrX5-&usqp=CAU'); background-size: 100% 100%;">
     <section class="testimonial py-5" id="testimonial">
         <div class="container">
             <div class="row ">
@@ -64,49 +45,77 @@
                         <p class="card-text">In this website the you can either lend or rent the products which are near to his location.</p>
                     </div>
                 </div>
-                <div class="col-md-8 py-5 border">
+                <div class="col-md-8 pl-3 py-5 border" style="background:white">
                     <h4 class="pb-4">Registration</h4>
-                    <form action="#" th:action="@{/append}" th:object="${user}" method="post">
+                    <form action="#" th:action="@{/signup}" th:object="${user}" method="post">
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                              <input id="First Name" name="firstName" placeholder="First Name" class="form-control" type="text" required>
+                            <div class="inputBox col-md-6">
+                              <input id="firstName" oninput="stoppedTyping()" name="firstName" class="form-control" type="text" required>
+                              <label>First Name<span class="required"> *</span></label>
                             </div>
-                            <div class="form-group col-md-6">
-                                <input id="Last Name" name="lastName" placeholder="Last Name" class="form-control" type="text" required>
+                            <div class="inputBox col-md-6">
+                                <input id="lastName" oninput="stoppedTyping()" name="lastName" class="form-control" type="text" required>
+                                <label>Last Name<span class="required"> *</span></label>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input type="email" name="email" class="form-control" aria-describedby="emailHelp" id="inputEmail4" placeholder="Email" required>
+                            <div class="inputBox col-md-6">
+                                <input type="text" id="email" oninput="stoppedTyping()" name="email" class="form-control" aria-describedby="emailHelp" required>
+                                <label>Email<span class="required"> *</span></label>
+                                <p th:if="${emailError}" class="required">Invalid email format</p>
                             </div>
-                            <div class="form-group col-md-6">
-                                <input id="Mobile No."  name="phoneNo" placeholder="Mobile No." class="form-control" type="text" maxlength="10" minlength="10" required>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="password"  id="password" name="password" class="form-control" placeholder="Password" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <input id="Dno"  name="doorNo" placeholder="Door No" class="form-control" type="text" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input id="city"  name="city" placeholder="city" class="form-control" type="text" required>
+                            <div class="inputBox col-md-6">
+                                <input id="phoneNo" oninput="stoppedTyping()" name="phoneNo" class="form-control" type="text" maxlength="10" minlength="10" required>
+                                <label>Mobile No<span class="required"> *</span></label>
+                                <p th:if="${numberError}" class="required">Invalid phone number</p>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <input id="state"  name="state" placeholder="State" class="form-control" type="text" required>
+                            <div class="inputBox col-md-6">
+                                <input type="password" oninput="stoppedTyping()" id="password" name="password" class="form-control" required>
+                                <label>Password<span class="required"> *</span></label>
                             </div>
-                            <div class="form-group col-md-4">
-                                <input id="country"  name="country" placeholder="Country" class="form-control" type="text" required>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <input id="pincode"  name="pincode" placeholder="Pincode" class="form-control" type="text" minlength="6" maxlength="6" required>
+                            <div class="inputBox col-md-6">
+                                <input type="password" oninput="stoppedTyping()" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                                <label>Confirm Password<span class="required"> *</span></label>
+                                <p th:if="${passwordError}" class="required">Password and conform password should be same</p>
                             </div>
                         </div>
-                        <div class="form-row pr-5" style="float:right">
-                            <input type="submit" value="Register" class="btn btn-success">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <input type="checkbox" onclick="myFunction()"> Show Password
+                            </div>
+                            <div class="col-md-6">
+                                <input type="checkbox" onclick="myFunction1()"> Show Password
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="inputBox col-md-6">
+                                <input id="doorNo" oninput="stoppedTyping()" name="doorNo" class="form-control" type="text" required>
+                                <label>Door No<span class="required"> *</span></label>
+                            </div>
+                            <div class="inputBox col-md-6">
+                                <input id="city" oninput="stoppedTyping()" name="city" class="form-control" type="text" required>
+                                <label>City<span class="required"> *</span></label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="inputBox col-md-4">
+                                <input id="state" oninput="stoppedTyping()" name="state" class="form-control" type="text" required>
+                                <label>State<span class="required"> *</span></label>
+                            </div>
+                            <div class="inputBox col-md-4">
+                                <input id="country" oninput="stoppedTyping()" name="country" class="form-control" type="text" required>
+                                <label>Country<span class="required"> *</span></label>
+                            </div>
+                            <div class="inputBox col-md-4">
+                                <input id="pincode" oninput="stoppedTyping()" name="pincode" class="form-control" type="text" minlength="6" maxlength="6" required>
+                                <label>Pincode<span class="required"> *</span></label>
+                                <p th:if="${numberError}" class="required">Invalid pincode</p>
+                            </div>
+                        </div>
+                        <div class="form-row" style="padding-left:40%">
+                            <input type="submit" id="reg_btn" disabled value="Register" class="btn btn-success">
                         </div>
                     </form>
                 </div>

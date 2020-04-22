@@ -4,58 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <style>
-        input[type="text"],
-        select.form-control {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #000000;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-radius: 0;
+    <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/style.css}" rel="stylesheet">
+    <script type="text/javascript">
+        function noBack(){window.history.forward()}
+        noBack();
+        window.onload=noBack;
+        window.onpageshow=function(evt){if(evt.persisted)noBack()}
+        window.onunload=function(){void(0)}
+        function stoppedTyping(){
+            if(document.getElementById("email").value!='' && document.getElementById("password").value!=''){
+                document.getElementById('login_btn').disabled=false
+            }
+            else{
+                document.getElementById('login_btn').disabled=true
+            }
         }
-        input[type="text"]:focus,
-        select.form-control:focus {
-            -webkit-box-shadow: none;
-            box-shadow: none;
+        function myFunction() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
         }
-        input[type="password"],
-        select.form-control {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #000000;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-radius: 0;
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition,showError);
+            }
         }
-        input[type="password"]:focus,
-        select.form-control:focus {
-            -webkit-box-shadow: none;
-            box-shadow: none;
+        function showPosition(position) {
+            document.getElementById('latitude').value=position.coords.latitude;
+            document.getElementById('longitude').value=position.coords.longitude;
         }
-        input[type="email"],
-        select.form-control {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #000000;
-            -webkit-box-shadow: none;
-            box-shadow: none;
-            border-radius: 0;
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                alert("User denied the request for Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Location information is unavailable.");
+                break;
+            case error.TIMEOUT:
+                alert("The request to get user location timed out.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("An unknown error occurred.");
+                break;
+            }
         }
-        input[type="email"]:focus,
-        select.form-control:focus {
-            -webkit-box-shadow: none;
-            box-shadow: none;
-        }
-    </style>
+    </script>
 </head>
-<body>
-<section class="testimonial py-5" id="testimonial">
+<body style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtZO2wu2x-xu46iUptwBI6tvIlUv5_G7RE6yaYxIQpRG-vrX5-&usqp=CAU'); background-size: 100% 100%;">
+<section class="testimonial" id="testimonial" style="padding:8% 0 8% 0">
     <div class="container">
         <div class="row ">
+            <div class="col-md-2"></div>
             <div class="card bg-dark col-md-4 py-5 text-white text-center">
                 <img class="card-img-top" src="https://cdn.windowsreport.com/wp-content/uploads/2018/03/ecommerce-2140604_1920.jpg" alt="Card image">
                 <div class="card-body">
@@ -64,26 +68,44 @@
                     <p class="card-text">In this website the you can either lend or rent the products which are near to his location.</p>
                 </div>
             </div>
-            <div class="col-md-4 py-5 border">
+            <div class="col-md-4 pl-3 py-5 border" style="background-color: white;">
                 <h4 class="pb-4">Login Form</h4>
-                <form action="#" th:action="@{/validate}" th:object="${user}" method="post">
-                    <p th:if="${InvalidCredentials}" class="error">Email or Password is wrong</p>
+                <form action="#" th:action="@{/}" th:object="${user}" method="post">
+                    <p th:if="${InvalidCredentials}" class="required">Email or Password is wrong</p>
+                    <p th:if="${locationError}" class="required">Location should be given</p>
                     <div class="form-row">
-                        <div class="form-group col-md-8">
-                            <input type="email" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required>
+                        <div class="inputBox col-md-8">
+                            <input type="text" id="email" name="email" oninput="stoppedTyping()" class="form-control" aria-describedby="emailHelp" required>
+                            <label>Email<span class="required"> *</span></label>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-8">
-                            <input id="password" name="password" placeholder="Password" class="form-control" required="required" type="password">
+                        <div class="inputBox col-md-8">
+                            <input id="password" name="password" oninput="stoppedTyping()" value="" class="form-control" required="required" type="password">
+                            <label>Password<span class="required"> *</span></label>
                         </div>
                     </div>
                     <div class="form-row">
-                        <input type="submit" value="Login" class="btn btn-success">
+                        <input type="checkbox" onclick="myFunction()"> Show Password
                     </div>
-                </form>
-                <p>If account does not exits <a th:href="@{/signup}">signup here</a></p>
+                    <div class="form-row">
+                        <button onclick="getLocation()">Allow Location</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="inputBox col-md-4">
+                            <input id="latitude" name="latitude" type="text" hidden>
+                        </div>
+                        <div class="inputBox col-md-4">
+                            <input id="longitude" name="longitude" type="text" hidden>
+                        </div>
+                    </div><br>
+                    <div class="form-row">
+                        <input type="submit" disabled id="login_btn" value="Login" class="btn btn-success">
+                    </div>
+                </form><br>
+                <p>If account does not exits <a th:href="@{/signup}">signup </a>here</p>
             </div>
+            <div class="col-md-2"></div>
         </div>
     </div>
 </section>
