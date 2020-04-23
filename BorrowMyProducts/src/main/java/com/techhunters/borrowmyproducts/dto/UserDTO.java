@@ -1,11 +1,7 @@
 package com.techhunters.borrowmyproducts.dto;
-
 import lombok.*;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
-
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 @Component
 @AllArgsConstructor
