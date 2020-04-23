@@ -36,7 +36,7 @@ public class TwilioAuthService implements AuthService {
             return true;
         } catch (Exception exception) {
 
-            log.info("exception : {}",exception.getMessage());
+            log.error("exception : {}",exception.getMessage());
             return false;
         }
 
@@ -60,7 +60,7 @@ public class TwilioAuthService implements AuthService {
         }
         catch(Exception exception)
         {
-            log.info("exception : {}",exception.getMessage());
+            log.error("exception : {}",exception.getMessage());
             return false;
         }
 
