@@ -6,32 +6,7 @@
     <title>signup</title>
     <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{css/style.css}" rel="stylesheet">
-    <script>
-        function stoppedTyping(){
-            if(document.getElementById("email").value!='' && document.getElementById("password").value!='' && document.getElementById("firstName").value!='' && document.getElementById("confirmPassword").value!='' && document.getElementById("phoneNo").value!='' && document.getElementById("lastName").value!='' && document.getElementById("doorNo").value!='' && document.getElementById("city").value!='' && document.getElementById("state").value!='' && document.getElementById("country").value!='' && document.getElementById("pincode").value!=''){
-                document.getElementById('reg_btn').disabled=false
-            }
-            else{
-                document.getElementById('reg_btn').disabled=true
-            }
-        }
-        function myFunction() {
-          var x = document.getElementById("password");
-          if (x.type === "password") {
-            x.type = "text";
-          } else {
-            x.type = "password";
-          }
-        }
-        function myFunction1() {
-          var x = document.getElementById("confirmPassword");
-          if (x.type === "password") {
-            x.type = "text";
-          } else {
-            x.type = "password";
-          }
-        }
-    </script>
+    <script type="text/javascript" th:src="@{js/signup.js}"></script>
 </head>
 <body style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtZO2wu2x-xu46iUptwBI6tvIlUv5_G7RE6yaYxIQpRG-vrX5-&usqp=CAU'); background-size: 100% 100%;">
 <section class="testimonial py-5" id="testimonial">
