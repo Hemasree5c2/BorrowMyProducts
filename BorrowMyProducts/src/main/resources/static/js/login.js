@@ -20,8 +20,15 @@ function myFunction() {
     }
 }
 function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition,showError);
+    if(document.getElementById('location').checked==false) {
+        document.getElementById('latitude').value='';
+        document.getElementById('longitude').value='';
+        alert('Please enable the location');
+    }
+    else {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition,showError);
+        }
     }
 }
 function showPosition(position) {
