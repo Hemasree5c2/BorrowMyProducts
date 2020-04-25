@@ -11,11 +11,7 @@ import com.techhunters.borrowmyproducts.entity.User;
 
 public class UserPrincipal implements UserDetails {
 
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private User user;
+    private User user;
 
     public UserPrincipal(User user) {
         this.user = user;
