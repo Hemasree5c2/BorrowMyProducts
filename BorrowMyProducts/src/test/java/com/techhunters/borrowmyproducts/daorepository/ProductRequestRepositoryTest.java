@@ -89,7 +89,7 @@ public class ProductRequestRepositoryTest {
 	    
 	    public User getUser() {
 	    	 User user1=new User();
-	         user1.setUsername("ray");
+	         user1.setUserFirstName("ray");
 	         user1.setPassword("password1");
 	         user1.setPhone("9392081881");
 	         user1.setEmail("ray@gmail.com");

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.apache.tomcat.jni.Address;
 
@@ -32,10 +33,17 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id")
+	@NotNull
 	private int userId;
 	
-	@Column(name="user_name")
-	private String username;
+	@Column(name="first_name")
+	private String userFirstName;
+	
+	@Column(name="last_name")
+	private String userLastName;
+	
+	@Column(name="username")
+	private String userName;
 	
 	@Column(name="password")
 	private String password;

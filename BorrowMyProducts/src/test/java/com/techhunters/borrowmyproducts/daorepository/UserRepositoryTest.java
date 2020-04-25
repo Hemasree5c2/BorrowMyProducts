@@ -89,7 +89,7 @@ public class UserRepositoryTest {
     
     public User getUser1() {
     	 User user1=new User();
-         user1.setUsername("ray");
+         user1.setUserFirstName("ray");
          user1.setPassword("password1");
          user1.setPhone("9392081881");
          user1.setEmail("ray@gmail.com");
@@ -98,7 +98,7 @@ public class UserRepositoryTest {
     
     public User getUser2() {
     	User user2=new User();
-        user2.setUsername("penber");
+        user2.setUserFirstName("penber");
         user2.setPassword("password2");
         user2.setPhone("8736872361");
         user2.setEmail("penber@gmail.com");
