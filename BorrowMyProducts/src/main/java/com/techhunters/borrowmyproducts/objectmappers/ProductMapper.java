@@ -4,23 +4,25 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.techhunters.borrowmyproducts.dto.ProductDTO;
 import com.techhunters.borrowmyproducts.dto.UserDTO;
+import com.techhunters.borrowmyproducts.entity.Product;
 import com.techhunters.borrowmyproducts.entity.User;
 
 @Component
-public class UserMapper {
+public class ProductMapper {
 	
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	public User convertToEntity(UserDTO userDTO) {
+	public Product convertToEntity(ProductDTO productDTO) {
 		
-		return modelMapper.map(userDTO,User.class);
+		return modelMapper.map(productDTO,Product.class);
 	}
 	
-    public UserDTO convertToDTO(User user) {
+    public ProductDTO convertToDTO(Product product) {
 		
-		return modelMapper.map(user,UserDTO.class);
+		return modelMapper.map(product,ProductDTO.class);
 	}
 	
 }

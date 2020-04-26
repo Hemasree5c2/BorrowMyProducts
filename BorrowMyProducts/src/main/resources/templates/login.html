@@ -24,18 +24,17 @@
             </div>
             <div class="col-md-4 pl-3 py-5 border" style="background-color: white;">
                 <h4 class="pb-4">Login Form</h4>
-                <form action="#" th:action="@{/}" th:object="${user}" method="post">
-                    <p th:if="${InvalidCredentials}" class="required">Email or Password is wrong</p>
-                    <p th:if="${locationError}" class="required">Location should be given</p>
+                <form class="border border-light p-5" th:action="@{/authenticateTheUser}" method="POST">
+                    <p class="required" th:if="${param.error}" >UserName or Password is wrong</p>
                     <div class="form-row">
                         <div class="inputBox col-md-8">
-                            <input type="text" id="email" name="email" oninput="stoppedTyping()" class="form-control" aria-describedby="emailHelp" required>
-                            <label>Email<span class="required"> *</span></label>
+                            <input type="text"  name="username"  class="form-control" aria-describedby="emailHelp" required>
+                            <label>UserName<span class="required"> *</span></label>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="inputBox col-md-8">
-                            <input id="password" name="password" oninput="stoppedTyping()" value="" class="form-control" required="required" type="password">
+                            <input  name="password"  value="" class="form-control" required="required" type="password">
                             <label>Password<span class="required"> *</span></label>
                         </div>
                     </div>
@@ -58,7 +57,7 @@
                         </div>
                     </div><br>
                     <div class="form-row">
-                        <input type="submit" disabled id="login_btn" value="Login" class="btn btn-success">
+                        <input type="submit"  id="login_btn" value="Login" class="btn btn-success">
                     </div>
                 </form><br>
                 <p>If account does not exits <a th:href="@{/signup}">signup </a>here</p>
