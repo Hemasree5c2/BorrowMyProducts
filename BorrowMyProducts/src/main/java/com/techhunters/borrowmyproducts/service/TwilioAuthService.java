@@ -35,8 +35,7 @@ public class TwilioAuthService implements AuthService {
 
             return true;
         } catch (Exception exception) {
-
-            log.error("exception : {}", exception.getMessage());
+            log.error("exception : {}",exception.getMessage());
             return false;
         }
 
@@ -57,8 +56,13 @@ public class TwilioAuthService implements AuthService {
                 log.info("user entered a wrong otp: {}, for this phone number: {}", otp, phoneNumber);
                 return false;
             }
-        } catch (Exception exception) {
-            log.error("exception : {}", exception.getMessage());
+
+
+        }
+        catch(Exception exception)
+        {
+            log.error("exception : {}",exception.getMessage());
+
             return false;
         }
 
