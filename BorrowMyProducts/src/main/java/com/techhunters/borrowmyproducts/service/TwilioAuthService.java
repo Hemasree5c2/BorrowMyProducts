@@ -1,13 +1,12 @@
 package com.techhunters.borrowmyproducts.service;
 
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.techhunters.borrowmyproducts.config.TwilioConfig;
 import com.twilio.Twilio;
 import com.twilio.rest.verify.v2.service.Verification;
 import com.twilio.rest.verify.v2.service.VerificationCheck;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -23,11 +22,15 @@ public class TwilioAuthService implements AuthService {
     }
 
     @Override
-    public Boolean sendOtp(String phoneNumber) {
+    public boolean sendOtp(String phoneNumber) {
         try {
+            log.info(twilioConfig.getAccountSid() + "   " + twilioConfig.getAuthToken());
+            log.info(phoneNumber);
             Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
             Verification verification = Verification
-                    .creator(twilioConfig.getServiceSid(), phoneNumber, "sms")
+                    .creator(twilioConfig.getServiceSid(),
+                            "+91" + phoneNumber,
+                            "sms")
                     .create();
 
 
@@ -35,20 +38,20 @@ public class TwilioAuthService implements AuthService {
 
             return true;
         } catch (Exception exception) {
-            log.error("exception : {}",exception.getMessage());
+            log.error("exception : {}", exception.getMessage());
             return false;
         }
 
     }
 
     @Override
-    public Boolean verifyOtp(String otp, String phoneNumber) {
+    public boolean verifyOtp(String otp, String phoneNumber) {
         try {
             Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
             VerificationCheck verificationCheck = VerificationCheck
                     .creator(twilioConfig.getServiceSid(), otp)
-                    .setTo(phoneNumber).create();
-
+                    .setTo("+91" + phoneNumber).create();
+            log.info("otp :" + verificationCheck.getStatus());
             if (verificationCheck.getStatus().equals("approved")) {
                 log.info("successfully verified otp");
                 return true;
@@ -58,10 +61,8 @@ public class TwilioAuthService implements AuthService {
             }
 
 
-        }
-        catch(Exception exception)
-        {
-            log.error("exception : {}",exception.getMessage());
+        } catch (Exception exception) {
+            log.error("exception : {}", exception.getMessage());
 
             return false;
         }
