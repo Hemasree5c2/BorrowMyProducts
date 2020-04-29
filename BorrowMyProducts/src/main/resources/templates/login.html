@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
-    <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{css/style.css}" rel="stylesheet">
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
     <script type="text/javascript" th:src="@{js/login.js}">
     </script>
 </head>
@@ -15,27 +15,29 @@
         <div class="row ">
             <div class="col-md-2"></div>
             <div class="card bg-dark col-md-4 py-5 text-white text-center">
-                <img class="card-img-top" src="https://cdn.windowsreport.com/wp-content/uploads/2018/03/ecommerce-2140604_1920.jpg" alt="Card image">
+                <img class="card-img-top"
+                     src="https://cdn.windowsreport.com/wp-content/uploads/2018/03/ecommerce-2140604_1920.jpg"
+                     alt="Card image">
                 <div class="card-body">
                     <h5 class="card-title">BorrowMyProducts</h5>
                     <h5 class="card-title">Lend here to Earn and Rent here to Save</h5>
-                    <p class="card-text">In this website the you can either lend or rent the products which are near to his location.</p>
+                    <p class="card-text">In this website the you can either lend or rent the products which are near to
+                        his location.</p>
                 </div>
             </div>
             <div class="col-md-4 pl-3 py-5 border" style="background-color: white;">
                 <h4 class="pb-4">Login Form</h4>
-                <form action="#" th:action="@{/}" th:object="${user}" method="post">
-                    <p th:if="${InvalidCredentials}" class="required">Email or Password is wrong</p>
-                    <p th:if="${locationError}" class="required">Location should be given</p>
+                <form class="border border-light " th:action="@{/authenticateTheUser}" method="POST">
+                    <p class="required" th:if="${param.error}">UserName or Password is wrong</p>
                     <div class="form-row">
                         <div class="inputBox col-md-8">
-                            <input type="text" id="email" name="email" oninput="stoppedTyping()" class="form-control" aria-describedby="emailHelp" required>
-                            <label>Email<span class="required"> *</span></label>
+                            <input type="text" name="username" class="form-control" aria-describedby="emailHelp" required>
+                            <label>UserName<span class="required"> *</span></label>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="inputBox col-md-8">
-                            <input id="password" name="password" oninput="stoppedTyping()" value="" class="form-control" required="required" type="password">
+                            <input name="password" value="" class="form-control" required="required" type="password">
                             <label>Password<span class="required"> *</span></label>
                         </div>
                     </div>
@@ -45,22 +47,10 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-8">
-                            <input type="checkbox" id="location" onclick="getLocation()"> Allow location
-                        </div>
+                        <input type="submit" id="login_btn" value="Login" class="btn btn-success">
                     </div>
-                    <div class="form-row">
-                        <div class="inputBox col-md-4">
-                            <input id="latitude" name="latitude" type="text" hidden>
-                        </div>
-                        <div class="inputBox col-md-4">
-                            <input id="longitude" name="longitude" type="text" hidden>
-                        </div>
-                    </div><br>
-                    <div class="form-row">
-                        <input type="submit" disabled id="login_btn" value="Login" class="btn btn-success">
-                    </div>
-                </form><br>
+                </form>
+                <br>
                 <p>If account does not exits <a th:href="@{/signup}">signup </a>here</p>
             </div>
             <div class="col-md-2"></div>

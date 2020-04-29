@@ -1,6 +1,10 @@
 package com.techhunters.borrowmyproducts.dto;
+
 import lombok.*;
 import org.springframework.stereotype.Component;
+
+import com.techhunters.borrowmyproducts.entity.UserAddress;
+
 import javax.validation.constraints.Email;
 
 @Component
@@ -9,19 +13,23 @@ import javax.validation.constraints.Email;
 @Getter
 @Setter
 public class UserDTO {
-    private String firstName;
-    private String lastName;
-    @Email(message = "invalid email")
-    private String email;
+
+
+    private int userId;
+
+    private String userFirstName;
+
+    private String userLastName;
+
     private String password;
+
     private String confirmPassword;
-    private String phoneNo;
-    private String state;
-    private String country;
-    private String city;
-    private String doorNo;
-    private String pincode;
-    private String latitude;
-    private String longitude;
-    private int otp;
+
+    private String phone;
+
+    private String email;
+
+    private AddressDTO address;
+
+
 }
