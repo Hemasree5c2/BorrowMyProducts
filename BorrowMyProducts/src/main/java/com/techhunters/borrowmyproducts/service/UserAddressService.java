@@ -1,4 +1,5 @@
 package com.techhunters.borrowmyproducts.service;
 
-public class AuthServiceImpl {
+public interface UserAddressService {
+
 }

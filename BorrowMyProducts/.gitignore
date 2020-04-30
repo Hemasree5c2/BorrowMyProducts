@@ -1,6 +1,7 @@
 HELP.md
 target/
 .mvn/
+*.env
 !**/src/main/**
 !**/src/test/**
 
