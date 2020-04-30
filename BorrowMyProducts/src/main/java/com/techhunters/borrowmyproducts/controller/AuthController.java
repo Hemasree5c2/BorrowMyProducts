@@ -64,6 +64,10 @@ public class AuthController {
 
         userDTO = user;
         userAddressDTO = address;
+        if (address.getLatitude() == null && address.getLongitude() == null) {
+            model.addAttribute("locationError", true);
+            return "signup";
+        }
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             model.addAttribute("passwordError", true);
             return "signup";

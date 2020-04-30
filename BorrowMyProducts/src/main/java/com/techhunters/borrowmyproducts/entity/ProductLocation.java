@@ -26,9 +26,9 @@ public class ProductLocation {
     private Product product;
 
     @Column(name = "longitude")
-    private double longitude;
+    private Double longitude;
 
     @Column(name = "latitude")
-    private double latitude;
+    private Double latitude;
 
 }

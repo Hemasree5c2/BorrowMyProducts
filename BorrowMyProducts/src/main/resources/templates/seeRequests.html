@@ -17,19 +17,9 @@
 <body>
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
-    <!--<<<<<<< HEAD-->
-    <!--    <div class="container">-->
-    <!--        <a class="navbar-brand" th:href="@{home}">-->
-    <!--            <img style="height:50px; width:150px" th:src="@{/images/logo.jpeg}" alt="logo"/>-->
-    <!--        </a>-->
-    <!--        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"-->
-    <!--                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
-    <!--                aria-label="Toggle navigation">-->
-    <!--            <span class="fas fa-bars"></span>-->
-    <!--        </button>-->
-    <!--=======-->
+
     <div class="container"><h3>BorrowMyProducts</h3>
-        <!--&gt;>>>>>> hemasree-->
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -46,20 +36,14 @@
 </nav>
 <div class="container">
     <div class="col-md-12 pl-3 py-5 border" style="background:white">
-        <!--<<<<<<< HEAD-->
-        <!--        <div th:each="product:${productRequests}">-->
-        <!--            <div class="row">-->
-        <!--                <div class="col-md-6">-->
-        <!--                    <p style="font-size:20px" th:text="${product.user.userFirstName}"></p>-->
-        <!--                    <p style="font-size:20px" th:text="${product.user.phone}"></p>-->
-        <!--=======-->
+
         <h5 th:if="${noProducts}">No requests yet!</h5>
         <div th:each="product:${productRequests}">
             <div class="row">
                 <div class="col-md-6">
                     <p style="font-size:20px" th:text="${'UserName:'+product.user.userFirstName}"></p>
                     <p style="font-size:20px" th:text="${'Mobile Number'+product.user.phone}"></p>
-                    <!--&gt;>>>>>> hemasree-->
+
                 </div>
                 <div col="col-md-6">
                     <a th:href="@{/accepted/{proId}/{userId}(proId=${product.product.productId},userId=${product.user.userId})}"

@@ -20,17 +20,7 @@
 <body>
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
-    <!--<<<<<<< HEAD-->
-    <!--    <div class="container">-->
-    <!--        <a class="navbar-brand" th:href="@{home}">-->
-    <!--            <img style="height:50px; width:150px" th:src="@{images/logo.jpeg}" alt="logo"/>-->
-    <!--        </a>-->
-    <!--        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"-->
-    <!--                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
-    <!--                aria-label="Toggle navigation">-->
-    <!--            <span class="fas fa-bars"></span>-->
-    <!--        </button>-->
-    <!--=======-->
+
     <div class="container"><h3>BorrowMyProducts</h3>
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -52,18 +42,8 @@
 </nav>
 <div class="container services-bar">
     <div class="row">
-        <!--<<<<<<< HEAD-->
-        <!--        <div class="col-lg-4 mb-4" th:each="product : ${products}">-->
-        <!--            <div class="card h-100">-->
-        <!--                <h4 class="card-header" th:text="${product.productName}"></h4>-->
-        <!--                <div class="card-img">-->
-        <!--                    <img class="img-fluid" th:src="@{${product.image}}" alt=""/>-->
-        <!--                </div>-->
-        <!--                <div class="card-body">-->
-        <!--                    <p class="card-text" th:text="${product.productDescription}"></p>-->
-        <!--                    <p class="card-text" th:text="${product.productCost}"></p>-->
-        <!--=======-->
         <h5 th:if="${noProducts}">You haven't added any products yet!</h5>
+        <p class="required error" style="color:red" th:if="${locationError}">Location must be given</p>
         <div class="col-lg-4 mb-4" th:each="product : ${products}">
             <div class="card h-100">
                 <h4 class="card-header" th:text="${product.productName}"></h4>
@@ -75,7 +55,7 @@
                 <div class="card-body">
                     <p class="card-text" th:text="${'Description:'+product.productDescription}"></p>
                     <p class="card-text" th:text="${'Cost:'+product.productCost}"></p>
-                    <!--&gt;>>>>>> hemasree-->
+
                 </div>
                 <div class="card-footer">
                     <a th:href="@{/seeRequests/{id}(id=${product.productId})}" class="btn btn-primary">SeeRequest</a>
@@ -114,12 +94,12 @@
                                         <label>Product Description<span class="required"> *</span></label>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlFile1">Select image</label>
+                                        <label for="image">Select image</label>
                                         <input type="file" th:field="${product.image}" name="image"
-                                               class="form-control-file" id="exampleFormControlFile1">
+                                               class="form-control-file" id="image">
                                     </div>
                                     <div class="dropdown">
-                                        <select id="country" name="country" th:field="${category.categoryName}">
+                                        <select id="category" name="category" th:field="${category.categoryName}">
                                             <option value="Electronic Devices">Electronic Devices</option>
                                             <option value="Home Appliances">Home Appliances</option>
                                         </select>
@@ -127,7 +107,8 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-8">
-                                        <input type="checkbox" id="location" onclick="getLocation()"> Allow location
+                                        <input type="checkbox" id="location" onclick="getLocation(); allowLocation();">
+                                        Allow location
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -141,7 +122,7 @@
                                     </div>
                                 </div>
                                 <div class="form-row" style="padding-left:40%">
-                                    <input type="submit" id="reg_btn" value="SUBMIT" class="btn btn-success">
+                                    <input type="submit" disabled id="btn" value="SUBMIT" class="btn btn-success">
                                 </div>
                             </form>
                         </div>

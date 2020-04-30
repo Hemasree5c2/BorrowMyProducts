@@ -42,4 +42,8 @@ public class UserAddress {
 
     @Column(name = "zip_code")
     private String zipCode;
+    @Column(name = "latitude")
+    private Double latitude;
+    @Column(name = "longitude")
+    private Double longitude;
 }

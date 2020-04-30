@@ -1,7 +1,9 @@
 package com.techhunters.borrowmyproducts.service;
 
+
 import com.techhunters.borrowmyproducts.daorepository.ProductRepository;
 import com.techhunters.borrowmyproducts.dto.ProductDTO;
+import com.techhunters.borrowmyproducts.dto.UserDTO;
 import com.techhunters.borrowmyproducts.entity.Product;
 import com.techhunters.borrowmyproducts.objectmappers.ProductMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +19,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
     @Autowired
     private ProductMapper productMapper;
     @Autowired
     private ProductRequestService productRequestService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public List<ProductDTO> listAll() {
@@ -83,16 +86,45 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> listAvailableProductsByCategory(String catName, int id) {
+    public List<Product> listAvailableProductsByCategory(String catName, int id) {
         List<ProductDTO> products = listByCategoryName(catName);
         List<Integer> requests = productRequestService.listByUserId(id);
-        List<ProductDTO> available = new ArrayList<>();
+        List<Product> available = new ArrayList<>();
         for (ProductDTO productDTO : products) {
             if (productDTO.getProductStatus().equals("available") && productDTO.getUser().getUserId() != id && !requests.contains(productDTO.getProductId())) {
-                available.add(productDTO);
+                available.add(productMapper.convertToEntity(productDTO));
             }
         }
         return available;
     }
+
+    @Override
+    public List<ProductDTO> listAvailableProductsByCategoryLocation(String catName, int id) {
+        List<Product> availableCategory = listAvailableProductsByCategory(catName, id);
+        UserDTO user = userService.findById(id);
+        List<ProductDTO> result = new ArrayList<>();
+        for (Product product : availableCategory) {
+            Double dist = distance(product.getProductLocation().getLatitude(), user.getAddress().getLatitude(), product.getProductLocation().getLongitude(), user.getAddress().getLongitude());
+            if (dist < 5) {
+                result.add(productMapper.convertToDTO(product));
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Double distance(double lat1, double lat2, double lon1, double lon2) {
+        lon1 = Math.toRadians(lon1);
+        lon2 = Math.toRadians(lon2);
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+        double dlon = lon2 - lon1;
+        double dlat = lat2 - lat1;
+        double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double r = 6371;
+        return (c * r);
+    }
+
 }
  

@@ -57,22 +57,24 @@ public class ProductController {
     public String addMyProduct(HttpServletRequest request, @ModelAttribute(name = "product") @Validated ProductDTO productDTO, @ModelAttribute(name = "location") @Validated ProductLocationDTO productLocationDTO, @ModelAttribute(name = "category") CategoryDTO cat, Model model, BindingResult result) throws IOException {
         Principal principal = request.getUserPrincipal();
         UserDTO user = userService.findByEmail(principal.getName());
+        if (productLocationDTO.getLatitude() == null && productLocationDTO.getLongitude() == null) {
+            model.addAttribute("locationError", true);
+            return "myProducts";
+        }
         if (result.hasErrors()) {
             return "myProducts";
         }
-        if (productDTO != null && productLocationDTO != null) {
-            CategoryDTO category = categoryService.findByCategoryName(cat.getCategoryName());
-            log.info(user.getEmail());
-            log.info(category.getCategoryName());
-            log.info("" + productLocationDTO.getLatitude());
-            productDTO.setProductLocation(productLocationDTO);
-            productDTO.setProductStatus("available");
-            productDTO.setImage("/images/" + productDTO.getImage());
-            productLocationDTO.setProduct(productDTO);
-            productDTO.setUser(user);
-            productDTO.setCategory(category);
-            productService.save(productDTO);
-        }
+        CategoryDTO category = categoryService.findByCategoryName(cat.getCategoryName());
+        log.info(user.getEmail());
+        log.info(category.getCategoryName());
+        log.info("" + productLocationDTO.getLatitude());
+        productDTO.setProductLocation(productLocationDTO);
+        productDTO.setProductStatus("available");
+        productDTO.setImage("/images/" + productDTO.getImage());
+        productLocationDTO.setProduct(productDTO);
+        productDTO.setUser(user);
+        productDTO.setCategory(category);
+        productService.save(productDTO);
         return "redirect:/myProducts";
     }
 
@@ -80,8 +82,8 @@ public class ProductController {
     public String electronicProductcs(Model model, HttpServletRequest request, @PathVariable("id") String id) {
         Principal principal = request.getUserPrincipal();
         UserDTO user = userService.findByEmail(principal.getName());
-        List<ProductDTO> products = productService.listAvailableProductsByCategory(id, user.getUserId());
 
+        List<ProductDTO> products = productService.listAvailableProductsByCategoryLocation(id, user.getUserId());
         if (products.size() == 0)
             model.addAttribute("noProducts", true);
         model.addAttribute("products", products);
