@@ -25,9 +25,9 @@
 
  | Config Value | Description  |
  | ---- | ---- |
- | Account Sid  | Your primary Twilio account identifier - find this in the Console. |
- | Auth Token		| Used to authenticate - just like the above, you'll find this here. |
- | Service id		| Create a service in the the twilio verify services. |
+ | Account Sid  | Your primary Twilio account identifier - find this in the [Console](https://www.twilio.com/console). |
+ | Auth Token		| Used to authenticate - just like the above, you'll find this [here](https://www.twilio.com/console). |
+ | Service id		| Create a service in the the [twilio verify services](https://www.twilio.com/console/verify/services). |
 
 ### Local Development
 - Clone the repository and cd into it.
