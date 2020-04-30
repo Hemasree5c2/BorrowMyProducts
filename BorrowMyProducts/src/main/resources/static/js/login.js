@@ -1,10 +1,16 @@
-function stoppedTyping(){
+function stoppedTypingLogin(){
     if(document.getElementById("username").value!='' && document.getElementById("password").value!=''){
         document.getElementById('login_btn').disabled=false
     }
     else{
         document.getElementById('login_btn').disabled=true
     }
+}
+function allowLocation() {
+    if(document.getElementById("location").checked==true)
+        document.getElementById('btn').disabled=false
+    else
+        document.getElementById('reg_btn').disabled=true
 }
 function myFunction() {
     var x = document.getElementById("password");
@@ -16,8 +22,6 @@ function myFunction() {
 }
 function getLocation() {
     if(document.getElementById('location').checked==false) {
-        document.getElementById('latitude').value='';
-        document.getElementById('longitude').value='';
         alert('Please enable the location');
     }
     else {

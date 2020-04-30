@@ -22,5 +22,7 @@ public interface ProductService {
 
     List<ProductDTO> listByUserId(int id);
 
-    List<ProductDTO> listAvailableProductsByCategory(String catName, int id);
+    List<Product> listAvailableProductsByCategory(String catName, int id);
+    List<ProductDTO> listAvailableProductsByCategoryLocation(String catName, int id);
+    Double distance(double lat1,double lat2, double lon1, double lon2);
 }
