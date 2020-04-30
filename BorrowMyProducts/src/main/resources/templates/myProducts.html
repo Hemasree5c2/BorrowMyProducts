@@ -13,19 +13,26 @@
     <!-- Custom styles for this template -->
     <link th:href="@{/css/style1.css}" rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <script type="text/javascript" th:src="@{js/login.js}"></script>
+
 </head>
 <body>
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{home}">
-            <img style="height:50px; width:150px" th:src="@{images/logo.jpeg}" alt="logo"/>
-        </a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="fas fa-bars"></span>
-        </button>
+    <!--<<<<<<< HEAD-->
+    <!--    <div class="container">-->
+    <!--        <a class="navbar-brand" th:href="@{home}">-->
+    <!--            <img style="height:50px; width:150px" th:src="@{images/logo.jpeg}" alt="logo"/>-->
+    <!--        </a>-->
+    <!--        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"-->
+    <!--                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
+    <!--                aria-label="Toggle navigation">-->
+    <!--            <span class="fas fa-bars"></span>-->
+    <!--        </button>-->
+    <!--=======-->
+    <div class="container"><h3>BorrowMyProducts</h3>
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -35,7 +42,9 @@
                     <a class="nav-link" data-toggle="modal" href="#myModal1">AddProduct</a>
                 </li>
                 <li class="nav-item">
+
                     <a class="nav-link" th:href="@{/}">Logout</a>
+
                 </li>
             </ul>
         </div>
@@ -43,15 +52,30 @@
 </nav>
 <div class="container services-bar">
     <div class="row">
+        <!--<<<<<<< HEAD-->
+        <!--        <div class="col-lg-4 mb-4" th:each="product : ${products}">-->
+        <!--            <div class="card h-100">-->
+        <!--                <h4 class="card-header" th:text="${product.productName}"></h4>-->
+        <!--                <div class="card-img">-->
+        <!--                    <img class="img-fluid" th:src="@{${product.image}}" alt=""/>-->
+        <!--                </div>-->
+        <!--                <div class="card-body">-->
+        <!--                    <p class="card-text" th:text="${product.productDescription}"></p>-->
+        <!--                    <p class="card-text" th:text="${product.productCost}"></p>-->
+        <!--=======-->
+        <h5 th:if="${noProducts}">You haven't added any products yet!</h5>
         <div class="col-lg-4 mb-4" th:each="product : ${products}">
             <div class="card h-100">
                 <h4 class="card-header" th:text="${product.productName}"></h4>
-                <div class="card-img">
-                    <img class="img-fluid" th:src="@{${product.image}}" alt=""/>
+                <div class="card-img text-center">
+                    <img class="img-fluid"
+                         style="margin-top: 20px; margin-left: 10px; margin-right: 10px; height:250px;width: 225px; "
+                         th:src="@{${product.image}}" alt=""/>
                 </div>
                 <div class="card-body">
-                    <p class="card-text" th:text="${product.productDescription}"></p>
-                    <p class="card-text" th:text="${product.productCost}"></p>
+                    <p class="card-text" th:text="${'Description:'+product.productDescription}"></p>
+                    <p class="card-text" th:text="${'Cost:'+product.productCost}"></p>
+                    <!--&gt;>>>>>> hemasree-->
                 </div>
                 <div class="card-footer">
                     <a th:href="@{/seeRequests/{id}(id=${product.productId})}" class="btn btn-primary">SeeRequest</a>

@@ -1,30 +1,25 @@
 package com.techhunters.borrowmyproducts.controller;
 
 import com.techhunters.borrowmyproducts.dto.AddressDTO;
-import com.techhunters.borrowmyproducts.dto.CategoryDTO;
 import com.techhunters.borrowmyproducts.dto.UserDTO;
-import com.techhunters.borrowmyproducts.entity.Category;
-import com.techhunters.borrowmyproducts.entity.User;
-import com.techhunters.borrowmyproducts.entity.UserAddress;
+import com.techhunters.borrowmyproducts.objectmappers.UserMapper;
 import com.techhunters.borrowmyproducts.service.CategoryService;
 import com.techhunters.borrowmyproducts.service.TwilioAuthService;
 import com.techhunters.borrowmyproducts.service.UserService;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -38,6 +33,12 @@ public class AuthController {
 
     @Autowired
     private TwilioAuthService twilioAuthService;
+
+    @Autowired
+    UserMapper userMapper;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
     public String showLogin() {
@@ -53,10 +54,8 @@ public class AuthController {
     @GetMapping("/signup")
     public String register(Model theModel) {
 
-        UserDTO userDTO = new UserDTO();
-        AddressDTO addressDTO = new AddressDTO();
-        theModel.addAttribute("user", userDTO);
-        theModel.addAttribute("address", addressDTO);
+        theModel.addAttribute("user", new UserDTO());
+        theModel.addAttribute("address", new AddressDTO());
         return "signup";
     }
 
@@ -69,6 +68,18 @@ public class AuthController {
             model.addAttribute("passwordError", true);
             return "signup";
         }
+
+        UserDTO checkDTO = userService.findByEmail(user.getEmail());
+        UserDTO checkDTO1 = userService.findByPhone(user.getPhone());
+        if (checkDTO != null) {
+            model.addAttribute("EmailExists", true);
+            return "signup";
+        }
+        if (checkDTO1 != null) {
+            model.addAttribute("phoneExists", true);
+            return "signup";
+        }
+
         if (result.hasErrors()) {
             model.addAttribute("emailError", true);
             return "signup";
@@ -82,6 +93,21 @@ public class AuthController {
             return "signup";
         }
     }
+
+    @GetMapping("/resendOtp")
+    public String resendOtp() {
+
+        log.info("resending the otp to {}", userDTO.getPhone());
+        if (twilioAuthService.sendOtp(userDTO.getPhone())) {
+            log.info("otp is sent succesfully");
+            return "otp";
+        } else {
+
+            return "signup";
+        }
+
+    }
+
 
     @GetMapping("/otp")
     public String redirectOtp(Model model) {
@@ -100,12 +126,20 @@ public class AuthController {
             //save here when otp is verified .
             userAddressDTO.setUser(userDTO);
             userDTO.setAddress(userAddressDTO);
+            userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
             userService.save(userDTO);
+
             //save the user with service;
-            return "redirect:/login";
+            return "redirect:/registrationSuccess";
         } else {
             return "redirect:/otp";
         }
+    }
+
+    @GetMapping("/registrationSuccess")
+    public String success(Model model) {
+        model.addAttribute("success", "login success");
+        return "login";
     }
 
     @GetMapping("/mainPage")
@@ -115,10 +149,12 @@ public class AuthController {
         return "home";
     }
 
-    @PostMapping("/addCategory")
-    public String addCategory(@ModelAttribute(name = "category") CategoryDTO category, Model model) {
-        categoryService.save(category);
-        model.addAttribute("categories", categoryService.findAll());
-        return "home";
-    }
+
+//    @PostMapping("/addCategory")
+//    public String addCategory(@ModelAttribute(name = "category") CategoryDTO category, Model model) {
+//        categoryService.save(category);
+//        model.addAttribute("categories", categoryService.findAll());
+//        return "home";
+//    }
+
 }

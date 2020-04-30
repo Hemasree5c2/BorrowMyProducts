@@ -1,9 +1,6 @@
 package com.techhunters.borrowmyproducts.service;
 
 import com.techhunters.borrowmyproducts.dto.CategoryDTO;
-import com.techhunters.borrowmyproducts.dto.UserDTO;
-import com.techhunters.borrowmyproducts.entity.Category;
-import com.techhunters.borrowmyproducts.entity.User;
 
 import java.util.List;
 

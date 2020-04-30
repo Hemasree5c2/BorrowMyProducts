@@ -1,27 +1,13 @@
 package com.techhunters.borrowmyproducts.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.apache.tomcat.jni.Address;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -45,9 +31,6 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "confirm_password")
-    private String confirmPassword;
 
     @Column(name = "phone_no")
     private String phone;

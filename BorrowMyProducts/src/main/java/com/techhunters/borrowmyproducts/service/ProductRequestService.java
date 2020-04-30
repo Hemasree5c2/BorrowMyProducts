@@ -1,11 +1,9 @@
 package com.techhunters.borrowmyproducts.service;
 
-import java.util.List;
-
 import com.techhunters.borrowmyproducts.dto.ProductDTO;
 import com.techhunters.borrowmyproducts.dto.ProductRequestDTO;
-import com.techhunters.borrowmyproducts.entity.Product;
-import com.techhunters.borrowmyproducts.entity.ProductRequest;
+
+import java.util.List;
 
 public interface ProductRequestService {
 

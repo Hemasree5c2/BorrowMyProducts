@@ -1,9 +1,8 @@
 package com.techhunters.borrowmyproducts.service;
 
-import java.util.List;
-
 import com.techhunters.borrowmyproducts.dto.UserDTO;
-import com.techhunters.borrowmyproducts.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -18,6 +17,7 @@ public interface UserService {
 
     public UserDTO findByEmail(String email);
 
+    public UserDTO findByPhone(String phone);
 
 //	public User findByUserName(String userName);
 

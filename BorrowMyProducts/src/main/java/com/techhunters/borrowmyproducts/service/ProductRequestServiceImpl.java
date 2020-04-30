@@ -1,18 +1,18 @@
 package com.techhunters.borrowmyproducts.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.techhunters.borrowmyproducts.entity.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.techhunters.borrowmyproducts.daorepository.ProductRequestRepository;
 import com.techhunters.borrowmyproducts.dto.ProductDTO;
 import com.techhunters.borrowmyproducts.dto.ProductRequestDTO;
 import com.techhunters.borrowmyproducts.entity.ProductRequest;
 import com.techhunters.borrowmyproducts.objectmappers.ProductRequestMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 @Service
 public class ProductRequestServiceImpl implements ProductRequestService {
 
@@ -106,6 +106,9 @@ public class ProductRequestServiceImpl implements ProductRequestService {
         List<ProductRequestDTO> result = new ArrayList<>();
         for (ProductRequestDTO req : pending) {
             if (req.getStatus().equals("pending")) {
+
+                log.info("username:" + req.getUser().getEmail());
+
                 result.add(req);
             }
         }

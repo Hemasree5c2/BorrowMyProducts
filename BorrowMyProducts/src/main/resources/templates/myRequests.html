@@ -17,22 +17,28 @@
 <body>
 <!-- Navigation -->
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{home}">
-            <img style="height:50px; width:150px" th:src="@{images/logo.jpeg}" alt="logo"/>
-        </a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="fas fa-bars"></span>
-        </button>
+    <!--<<<<<<< HEAD-->
+    <!--    <div class="container">-->
+    <!--        <a class="navbar-brand" th:href="@{home}">-->
+    <!--            <img style="height:50px; width:150px" th:src="@{images/logo.jpeg}" alt="logo"/>-->
+    <!--        </a>-->
+    <!--        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"-->
+    <!--                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"-->
+    <!--                aria-label="Toggle navigation">-->
+    <!--            <span class="fas fa-bars"></span>-->
+    <!--        </button>-->
+    <!--=======-->
+    <div class="container"><h3>BorrowMyProducts</h3>
+        <!--&gt;>>>>>> hemasree-->
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/mainPage}">Home</a>
                 </li>
                 <li class="nav-item">
+
                     <a class="nav-link" th:href="@{/}">Logout</a>
+
                 </li>
             </ul>
         </div>
@@ -40,15 +46,30 @@
 </nav>
 <div class="container services-bar">
     <div class="row">
+        <!--<<<<<<< HEAD-->
+        <!--        <div class="col-lg-4 mb-4" th:each="user : ${productRequests}">-->
+        <!--            <div class="card h-100">-->
+        <!--                <h4 class="card-header" th:text="${user.product.productName}"></h4>-->
+        <!--                <div class="card-img">-->
+        <!--                    <img class="img-fluid" th:src="@{${user.product.image}}" alt=""/>-->
+        <!--                </div>-->
+        <!--                <div class="card-body">-->
+        <!--                    <p class="card-text" th:text="${user.product.productDescription}"></p>-->
+        <!--                    <p class="card-text" th:text="${user.product.productCost}"></p>-->
+        <!--=======-->
+        <h5 th:if="${noProducts}">You haven't requested any product yet!</h5>
         <div class="col-lg-4 mb-4" th:each="user : ${productRequests}">
             <div class="card h-100">
                 <h4 class="card-header" th:text="${user.product.productName}"></h4>
-                <div class="card-img">
-                    <img class="img-fluid" th:src="@{${user.product.image}}" alt=""/>
+                <div class="card-img text-center">
+                    <img class="img-fluid"
+                         style="height:250px;margin-top: 20px; margin-left: 10px; margin-right: 10px; width: 225px; "
+                         th:src="@{${user.product.image}}" alt=""/>
                 </div>
                 <div class="card-body">
-                    <p class="card-text" th:text="${user.product.productDescription}"></p>
-                    <p class="card-text" th:text="${user.product.productCost}"></p>
+                    <p class="card-text" th:text="${'Description:'+user.product.productDescription}"></p>
+                    <p class="card-text" th:text="${'Cost:'+user.product.productCost}"></p>
+                    <!--&gt;>>>>>> hemasree-->
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-primary" th:text="${user.status}"></a>

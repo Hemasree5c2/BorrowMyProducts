@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>login</title>
-    <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{css/style.css}" rel="stylesheet">
+
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
     <script type="text/javascript" th:src="@{js/login.js}">
     </script>
 </head>
@@ -27,12 +29,16 @@
             </div>
             <div class="col-md-4 pl-3 py-5 border" style="background-color: white;">
                 <h4 class="pb-4">Login Form</h4>
-                <form class="border border-light p-5" th:action="@{/authenticateTheUser}" method="POST">
+
+                <form class="border border-light " th:action="@{/authenticateTheUser}" method="POST">
                     <p class="required" th:if="${param.error}">UserName or Password is wrong</p>
+                    <p class="success" th:if="${success}">Successfully Registered ,Please login </p>
+
                     <div class="form-row">
                         <div class="inputBox col-md-8">
                             <input type="text" name="username" class="form-control" aria-describedby="emailHelp"
                                    required>
+
                             <label>UserName<span class="required"> *</span></label>
                         </div>
                     </div>
@@ -48,20 +54,7 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-8">
-                            <input type="checkbox" id="location" onclick="getLocation()"> Allow location
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="inputBox col-md-4">
-                            <input id="latitude" name="latitude" type="text" hidden>
-                        </div>
-                        <div class="inputBox col-md-4">
-                            <input id="longitude" name="longitude" type="text" hidden>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-row">
+
                         <input type="submit" id="login_btn" value="Login" class="btn btn-success">
                     </div>
                 </form>

@@ -1,12 +1,7 @@
 package com.techhunters.borrowmyproducts.config;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.techhunters.borrowmyproducts.dto.UserDTO;
+import com.techhunters.borrowmyproducts.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,9 +9,11 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.techhunters.borrowmyproducts.dto.UserDTO;
-import com.techhunters.borrowmyproducts.entity.User;
-import com.techhunters.borrowmyproducts.service.UserService;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Slf4j
 @Component

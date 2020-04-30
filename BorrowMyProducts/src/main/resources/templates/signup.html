@@ -26,6 +26,10 @@
             <div class="col-md-8 pl-3 py-5 border" style="background:white">
                 <h4 class="pb-4">Registration</h4>
                 <form action="#" th:action="@{/signup}" th:object="${user}" method="post">
+                    <p class="required error" th:if="${passwordError}">Passwords didn't match</p>
+                    <p class="required error" th:if="${EmailExists}">User Email already Exits </p>
+                    <p class="required error" th:if="${phoneExists}">User Phone Number already Exits </p>
+
                     <div class="form-row">
                         <div class="inputBox col-md-6">
                             <input id="firstName" oninput="stoppedTyping()" name="firstName"

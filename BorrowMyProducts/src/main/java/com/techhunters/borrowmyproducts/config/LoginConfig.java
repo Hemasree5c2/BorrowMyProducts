@@ -1,6 +1,5 @@
 package com.techhunters.borrowmyproducts.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-
-import com.techhunters.borrowmyproducts.service.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -48,6 +44,12 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/")
                 .permitAll();
+
+        http
+                .headers()
+                .frameOptions()
+                .disable();
+
     }
 
 
@@ -56,9 +58,14 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
 
         auth.setUserDetailsService(userDetailsService);
-        auth.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.setPasswordEncoder(bCryptPasswordEncoder());
 
         return auth;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

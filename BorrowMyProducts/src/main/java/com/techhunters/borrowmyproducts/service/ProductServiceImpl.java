@@ -1,17 +1,15 @@
 package com.techhunters.borrowmyproducts.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.techhunters.borrowmyproducts.entity.ProductRequest;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.techhunters.borrowmyproducts.daorepository.ProductRepository;
 import com.techhunters.borrowmyproducts.dto.ProductDTO;
 import com.techhunters.borrowmyproducts.entity.Product;
 import com.techhunters.borrowmyproducts.objectmappers.ProductMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service

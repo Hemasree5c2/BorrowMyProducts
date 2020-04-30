@@ -1,15 +1,12 @@
 package com.techhunters.borrowmyproducts.config;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import lombok.extern.slf4j.Slf4j;
+import com.techhunters.borrowmyproducts.dto.UserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.techhunters.borrowmyproducts.dto.UserDTO;
-import com.techhunters.borrowmyproducts.entity.User;
+import java.util.Collection;
+import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
 

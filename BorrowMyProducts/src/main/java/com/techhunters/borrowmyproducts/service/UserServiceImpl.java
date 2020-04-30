@@ -1,18 +1,17 @@
 package com.techhunters.borrowmyproducts.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.techhunters.borrowmyproducts.entity.ProductRequest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
-import org.springframework.stereotype.Service;
-
 import com.techhunters.borrowmyproducts.daorepository.UserRepository;
-import com.techhunters.borrowmyproducts.dto.ProductRequestDTO;
 import com.techhunters.borrowmyproducts.dto.UserDTO;
 import com.techhunters.borrowmyproducts.entity.User;
 import com.techhunters.borrowmyproducts.objectmappers.UserMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -57,7 +56,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findByEmail(String email) {
-        return userMapper.convertToDTO(userRepository.findByEmail(email));
+
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            return null;
+        }
+        return userMapper.convertToDTO(user);
+    }
+
+    @Override
+    public UserDTO findByPhone(String phone) {
+        User user = userRepository.findByPhone(phone);
+        if (user == null) {
+            return null;
+        }
+        return userMapper.convertToDTO(user);
+
     }
 
 //	@Override

@@ -1,17 +1,9 @@
 package com.techhunters.borrowmyproducts.controller;
 
-import com.techhunters.borrowmyproducts.dto.CategoryDTO;
-import com.techhunters.borrowmyproducts.dto.ProductDTO;
-import com.techhunters.borrowmyproducts.dto.ProductLocationDTO;
-import com.techhunters.borrowmyproducts.dto.ProductRequestDTO;
-import com.techhunters.borrowmyproducts.dto.UserDTO;
-import com.techhunters.borrowmyproducts.entity.*;
-import com.techhunters.borrowmyproducts.objectmappers.CategoryMapper;
-import com.techhunters.borrowmyproducts.objectmappers.UserMapper;
+import com.techhunters.borrowmyproducts.dto.*;
 import com.techhunters.borrowmyproducts.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,7 +44,12 @@ public class ProductController {
         model.addAttribute("product", product);
         model.addAttribute("location", productLocationDTO);
         model.addAttribute("category", category);
-        model.addAttribute("products", productService.listByUserId(user.getUserId()));
+
+        List<ProductDTO> products = productService.listByUserId(user.getUserId());
+        if (products.size() == 0)
+            model.addAttribute("noProducts", true);
+        model.addAttribute("products", products);
+
         return "myProducts";
     }
 
@@ -84,6 +81,9 @@ public class ProductController {
         Principal principal = request.getUserPrincipal();
         UserDTO user = userService.findByEmail(principal.getName());
         List<ProductDTO> products = productService.listAvailableProductsByCategory(id, user.getUserId());
+
+        if (products.size() == 0)
+            model.addAttribute("noProducts", true);
         model.addAttribute("products", products);
         return "categoryProducts";
     }
@@ -95,7 +95,7 @@ public class ProductController {
         UserDTO user = userService.findByEmail(principal.getName());
         ProductDTO product1 = productService.findById(id);
         UserDTO owner = userService.findById(product1.getUser().getUserId());
-        String msg = "Your product " + product1.getProductName() + " has been requested";
+        String msg = "Your product " + product1.getProductName() + " has been requested , please login to accept the request";
         if (twilioCustomMessageApi.notifyUser(msg, owner.getPhone())) {
             log.info("owner has been notified successfully");
         } else {
@@ -113,13 +113,22 @@ public class ProductController {
     @GetMapping("/myRequests")
     public String seeRequests(Model model, HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
-        model.addAttribute("productRequests", productRequestService.listByUser(principal.getName()));
+
+        List<ProductRequestDTO> requestDTOS = productRequestService.listByUser(principal.getName());
+        if (requestDTOS.size() == 0)
+            model.addAttribute("noProducts", true);
+        model.addAttribute("productRequests", requestDTOS);
+
         return "myRequests";
     }
 
     @GetMapping("/seeRequests/{id}")
     public String myProductsRequests(@PathVariable("id") int id, Model model) {
         List<ProductRequestDTO> requests = productRequestService.listByProductPending(id);
+
+        if (requests.size() == 0)
+            model.addAttribute("noProducts", true);
+
         log.info("" + requests.size());
         model.addAttribute("productRequests", requests);
         return "seeRequests";
@@ -135,6 +144,15 @@ public class ProductController {
         List<ProductRequestDTO> requests = productRequestService.listByProduct(proId);
         for (ProductRequestDTO req : requests) {
             if (req.getUser().getUserId() == userId) {
+
+                String ownerMsg = "You have successfully accepted the request for  "
+                        + product1.getProductName() + " ,your customer mobile number is: " + req.getUser().getPhone();
+                if (twilioCustomMessageApi.notifyUser(ownerMsg, owner.getPhone())) {
+                    log.info("owner has been notified successfully");
+                } else {
+                    log.info("error");
+                }
+
                 req.setStatus("accepted");
             } else {
                 req.setStatus("rejected");
@@ -142,17 +160,18 @@ public class ProductController {
             productRequestService.save(req);
             if (req.getUser().getUserId() != userId) {
                 log.info("" + req.getUser().getPhone());
-                String msg1 = "Your product request for the product " + product1.getProductName() + " has been rejected";
-                if (twilioCustomMessageApi.notifyUser(msg1, req.getUser().getPhone())) {
-                    log.info("owner has been notified successfully");
+                String rejectMsg = "Your product request for the product " + product1.getProductName() + " has been rejected";
+                if (twilioCustomMessageApi.notifyUser(rejectMsg, req.getUser().getPhone())) {
+                    log.info("requested user  has been notified successfully");
                 } else {
                     log.info("error");
                 }
+
                 productRequestService.delete(req);
             }
         }
         UserDTO user = userService.findById(userId);
-        String msg = "Your product request for the product " + product1.getProductName() + " has been accepted" + " your owner mobile number " + owner.getPhone();
+        String msg = "Your product request for the product " + product1.getProductName() + " has been accepted" + ", your owner mobile number is " + owner.getPhone();
         if (twilioCustomMessageApi.notifyUser(msg, user.getPhone())) {
             log.info("user has been notified successfully");
         } else {
@@ -164,9 +183,19 @@ public class ProductController {
 
     @GetMapping("/reject/{proId}/{userId}")
     public String reject(@PathVariable("proId") int proId, @PathVariable("userId") int userId, Model model) {
+
+        String productName = productService.findById(proId).getProductName();
         List<ProductRequestDTO> requests = productRequestService.listByProduct(proId);
         for (ProductRequestDTO req : requests) {
             if (req.getUser().getUserId() == userId) {
+
+                String msg = "Your product request  for " + productName + " has been cancelled by the owner,Thank you ";
+                if (twilioCustomMessageApi.notifyUser(msg, req.getUser().getPhone())) {
+                    log.info("user has been notified successfully for rejection ");
+                } else {
+                    log.info("error in sending the rejection msg to the requested user");
+                }
+
                 productRequestService.delete(req);
             }
         }

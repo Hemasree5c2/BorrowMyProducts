@@ -1,11 +1,10 @@
 package com.techhunters.borrowmyproducts.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
-
-import com.techhunters.borrowmyproducts.entity.UserAddress;
-
-import javax.validation.constraints.Email;
 
 @Component
 @AllArgsConstructor
