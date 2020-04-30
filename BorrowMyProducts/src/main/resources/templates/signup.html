@@ -7,6 +7,7 @@
     <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <script type="text/javascript" th:src="@{js/signup.js}"></script>
+    <script type="text/javascript" th:src="@{js/login.js}"></script>
 </head>
 <body style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQtZO2wu2x-xu46iUptwBI6tvIlUv5_G7RE6yaYxIQpRG-vrX5-&usqp=CAU'); background-size: 100% 100%;">
 <section class="testimonial py-5" id="testimonial">
@@ -29,6 +30,7 @@
                     <p class="required error" th:if="${passwordError}">Passwords didn't match</p>
                     <p class="required error" th:if="${EmailExists}">User Email already Exits </p>
                     <p class="required error" th:if="${phoneExists}">User Phone Number already Exits </p>
+                    <p class="required error" th:if="${locationError}">Location must be given</p>
                     <div class="form-row">
                         <div class="inputBox col-md-6">
                             <input id="firstName" oninput="stoppedTyping()" name="firstName"
@@ -107,6 +109,21 @@
                             <input id="pincode" oninput="stoppedTyping()" name="pincode" class="form-control"
                                    th:field="${address.zipCode}" type="text" minlength="6" maxlength="6" required>
                             <label>Pincode<span class="required"> *</span></label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-8">
+                            <input type="checkbox" id="location" onclick="getLocation(); stoppedTyping();"> Allow location
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="inputBox col-md-4">
+                            <input id="latitude" th:field="${address.latitude}" name="latitude" type="text"
+                                   hidden>
+                        </div>
+                        <div class="inputBox col-md-4">
+                            <input id="longitude" th:field="${address.longitude}" name="longitude"
+                                   type="text" hidden>
                         </div>
                     </div>
                     <div class="form-row" style="padding-left:40%">

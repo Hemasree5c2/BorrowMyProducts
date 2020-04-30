@@ -36,4 +36,6 @@ public class AddressDTO {
     private String country;
 
     private String zipCode;
+    private Double latitude;
+    private Double longitude;
 }

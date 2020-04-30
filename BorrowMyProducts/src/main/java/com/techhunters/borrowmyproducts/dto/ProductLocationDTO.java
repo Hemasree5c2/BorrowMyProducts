@@ -17,7 +17,7 @@ public class ProductLocationDTO {
 
     private ProductDTO product;
 
-    private double longitude;
+    private Double longitude;
 
-    private double latitude;
+    private Double latitude;
 }
