@@ -154,11 +154,4 @@ public class AuthController {
     }
 
 
-//    @PostMapping("/addCategory")
-//    public String addCategory(@ModelAttribute(name = "category") CategoryDTO category, Model model) {
-//        categoryService.save(category);
-//        model.addAttribute("categories", categoryService.findAll());
-//        return "home";
-//    }
-
 }

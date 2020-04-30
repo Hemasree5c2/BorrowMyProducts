@@ -24,12 +24,12 @@ public class TwilioAuthService implements AuthService {
     @Override
     public boolean sendOtp(String phoneNumber) {
         try {
-            log.info(twilioConfig.getAccountSid() + "   " + twilioConfig.getAuthToken());
+            log.info(twilioConfig.getAccountSid() + "   " + twilioConfig.getAuthToken() + "   " + twilioConfig.getServiceSid());
             log.info(phoneNumber);
             Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
             Verification verification = Verification
                     .creator(twilioConfig.getServiceSid(),
-                            "+91" + phoneNumber,
+                            phoneNumber,
                             "sms")
                     .create();
 
@@ -50,7 +50,7 @@ public class TwilioAuthService implements AuthService {
             Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
             VerificationCheck verificationCheck = VerificationCheck
                     .creator(twilioConfig.getServiceSid(), otp)
-                    .setTo("+91" + phoneNumber).create();
+                    .setTo(phoneNumber).create();
             log.info("otp :" + verificationCheck.getStatus());
             if (verificationCheck.getStatus().equals("approved")) {
                 log.info("successfully verified otp");

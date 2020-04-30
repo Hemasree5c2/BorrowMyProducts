@@ -24,7 +24,7 @@ public class TwilioCustomMessageApi implements TwilioMessageApi {
         try {
             Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
             Message message = Message.creator(
-                    new com.twilio.type.PhoneNumber("+91" + phoneNumber),
+                    new com.twilio.type.PhoneNumber(phoneNumber),
                     new com.twilio.type.PhoneNumber("+15108673525"),
                     msg)
                     .create();

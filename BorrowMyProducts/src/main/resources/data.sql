@@ -7,6 +7,9 @@ INSERT INTO USER VALUES
 ('1'	,'user@gmail.com'	,'$2a$10$pT28Z3vhamVCSJYJ66e6x.ZNmBBtupFdw6Nh0PJ.S8yV6O/.0w1dK',
 '8247361207','user','name');
 
+INSERT INTO Address VALUES
+('1' ,'123',	'hyderabad',	'India',	'12345',	'17.4118986',	'78.5707608',	'TG',	'500293',	'1');
+
 INSERT INTO Product values
 ('1'	,'/images/laptop.jpg', '200','its laptop availble for rent' ,'laptop','available'	,'1','1'),
  ('2'	,'/images/mixer.jpeg',	'150','you can make a chutneys,juices in less time....Hurry up to borrow','mixer','available','2'	,'1'),
